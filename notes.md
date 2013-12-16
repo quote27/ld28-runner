@@ -39,5 +39,23 @@ audio
 - maybe bit trip runner themed?
 
 
+organization
+====================
+as much as i'd like to use opengl, use sdl's blit feature to do 2d drawing
+but handle transformations and such in code
+use box2d library to do collisions and movement - box2d seems a bit bigger than initially expected, so will just write something simple 
+sdlinput to handle input - use 'z' as action key for now
+  add ability to customize button
 
-
+file / class structure idea
+----------
+- main.cpp: initialization and starts program
+x - renderer.h: abstraction for renderer - 2d program so pass window & draw coordinates [game needs to translate from world to screen]
+x   - sdlrenderer.{cpp,h}: implementation of above
+- resource.h: abstraction for resource loader - loads files and holds references to data in memory
+  - sdlresource.{cpp,h}: implementation of above
+- game.{cpp,h}: game logic - main loop [update and all]
+- obj: abstraction for game object - has x/y info and resource id
+  - map/tile: map contains world map for runner, tile contains floor and ceiling information
+  - player: the character that's moving [initially a box]
+- vec.{cpp,h}: 2d vector library
