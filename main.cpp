@@ -3,13 +3,13 @@
 #include "world.h"
 #include "player.h"
 
-bool _running;
-bool _lost;
 SDL_Surface *screen;
 World world;
 State st;
 Player p;
 SDL_Event e;
+
+game_state_t _game_state;
 
 bool init();
 void event(SDL_Event *e);
@@ -23,7 +23,7 @@ void event(SDL_Event *e) {
 		case SDL_KEYUP: { st.keyup(e->key.keysym.sym, e->key.keysym.mod, e->key.keysym.unicode); break; }
 		case SDL_MOUSEBUTTONDOWN: st.mousedown(); break;
 		case SDL_MOUSEBUTTONUP: st.mouseup(); break;
-		case SDL_QUIT: _running = false;
+		case SDL_QUIT: _game_state = QUIT;
 	}
 }
 
@@ -43,6 +43,7 @@ void draw() {
 
 // init sdl and other globals
 bool init() {
+	_game_state = LOADING;
 	if(SDL_Init(SDL_INIT_EVERYTHING) == -1) {
 		fprintf(stdout,"failed to init sdl\n"); return false;
 	}
@@ -52,8 +53,6 @@ bool init() {
 		fprintf(stdout,"failed to init screen\n"); return false;
 	}
 
-	_running = true;
-	_lost = false;
 	world.reset();
 	p.reset();
 	return true;
@@ -65,9 +64,9 @@ void cleanup() {
 }
 
 void loop() {
-	if(_lost) {
+	if(_game_state == SCORE_SCREEN) {
 		printf("you hit a wall =(\n");
-		_lost = false;
+		_game_state = IN_GAME;
 		world.reset();
 		p.reset();
 	}
@@ -84,12 +83,12 @@ int main() {
 		fprintf(stdout, "an error occurred during init, exiting\n"); return -1;
 	}
 
-	_running = true;
+	_game_state = IN_GAME;
 #ifdef EMSCRIPTEN
 	emscripten_set_main_loop(loop, 0, 1);
 #else
 	int t_start;
-	while(_running) {
+	while(_game_state != QUIT) {
 		t_start = SDL_GetTicks();
 		loop();
 		SDL_Delay(16-(SDL_GetTicks()-t_start));

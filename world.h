@@ -81,7 +81,7 @@ public:
 		if(left_h < right_h) {
 			//printf("left wall < right wall: %f < %f. player: %f [+h %f]\n", left_h, right_h, p->y, p->y-Player::h);
 			if(p->y-Player::h < right_h - 4) //4 is to add a bit of leeway when landing - helps when you land on a corner
-				_lost = true;
+				_game_state = SCORE_SCREEN;
 		}
 
 		//floor collision

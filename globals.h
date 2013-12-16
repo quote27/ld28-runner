@@ -9,17 +9,17 @@
 #define SDLMod unsigned short //fails to compile without this for some reason [[shrug]]
 #endif
 
-//#include "vec.h"
-#include "state.h"
-
-
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
 extern SDL_Surface *screen;
-extern bool _running;
-extern bool _lost;
-extern State st;
+enum game_state_t {
+	LOADING=0, START_SCREEN, IN_GAME, SCORE_SCREEN, QUIT
+};
+extern game_state_t _game_state;
 
 static const float gravity = .25;
 static const float epsilon = 1e-6;
+
+#include "state.h"
+extern State st;

@@ -1,7 +1,5 @@
 #pragma once
 
-extern bool _running;
-
 enum player_state {
 	GROUND=0, JUMP_1_START, JUMP_1, JUMP_2_START, JUMP_2, SLIDE, HOVER, HOVER_FALL
 };
@@ -94,7 +92,7 @@ public:
 		switch(sym) {
 		//case SDLK_z: { button_pressed = true; button_state = TAP; hold_time = SDL_GetTicks(); break; }
 		case SDLK_z: tap(); break;
-		case SDLK_q: _running = false; break;
+		case SDLK_q: _game_state = QUIT; break;
 		default: {}
 		}
 
