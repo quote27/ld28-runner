@@ -14,9 +14,10 @@ management and is supported by emscripten.
 Another goal I had was to experiment with [emscripten](https://github.com/kripken/emscripten).
 Emscripten is an interesting project as it strives to reach native performance in a browser
 environment. Check out Epic's Unreal Engine 3 [demo](https://www.youtube.com/watch?v=BV32Cs_CMqo)
-[unfortunately it seems like the live is no longer online]. Supporting emscripten wasn't as hard as
-I initially thought, the api is relatively simple, and as long as you dont do too much computation
-each frame, it performs nicely.
+[unfortunately it seems like the live demo is no longer online].
+
+Supporting emscripten wasn't as hard as I initially though. One just needs to set the main loop
+function, and ensure that each iteration is not too heavy [otherwise the browser will stutter].
 
 
 Design
