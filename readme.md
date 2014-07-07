@@ -1,4 +1,4 @@
-ld24-runner
+ld28-runner
 ====================
 
 This is my [Ludum Dare 28](http://www.ludumdare.com/compo/ludum-dare-28/) prototype.
