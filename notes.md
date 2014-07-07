@@ -1,4 +1,4 @@
-ludum dare 48
+ludum dare 24
 
 theme: "you only have one"
 
